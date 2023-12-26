@@ -4,6 +4,8 @@
 
 #include "ready_set_bool.hpp"
 
+using namespace m42;
+
 TEST_CASE("multiply first 100 numbers", "[multiplier]") {
     for (uint32_t a = 0; a < 100; ++a) {
         for (uint32_t b = 0; b < 100; ++b) {
@@ -12,7 +14,7 @@ TEST_CASE("multiply first 100 numbers", "[multiplier]") {
     }
 }
 
-TEST_CASE("random multiplier test", "[adder]") {
+TEST_CASE("random multiplier test", "[multiplier]") {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<uint32_t> rand(0, UINT32_MAX);

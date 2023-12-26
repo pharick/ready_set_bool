@@ -2,6 +2,8 @@
 
 #include "ready_set_bool.hpp"
 
+using namespace m42;
+
 TEST_CASE("subject examples", "[eval_formula]") {
     REQUIRE(eval_formula("10&") == false);
     REQUIRE(eval_formula("10|") == true);

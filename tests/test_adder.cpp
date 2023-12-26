@@ -4,6 +4,8 @@
 
 #include "ready_set_bool.hpp"
 
+using namespace m42;
+
 TEST_CASE("half_adder", "[adder]") {
     bool sum, carry;
 

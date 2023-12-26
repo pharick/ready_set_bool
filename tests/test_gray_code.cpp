@@ -2,6 +2,8 @@
 
 #include "ready_set_bool.hpp"
 
+using namespace m42;
+
 TEST_CASE("first 16 gray codes", "[gray_code]") {
     REQUIRE(gray_code(0b0000) == 0b0000); // 0 -> 0
     REQUIRE(gray_code(0b0001) == 0b0001); // 1 -> 1

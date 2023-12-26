@@ -2,6 +2,8 @@
 
 #include "ready_set_bool.hpp"
 
+using namespace m42;
+
 template <typename Func, typename... Args>
 std::string capture_stdout(Func f, const Args&... args) {
     std::streambuf *cout_buf = std::cout.rdbuf();
