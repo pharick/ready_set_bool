@@ -14,7 +14,7 @@ std::string capture_stdout(Func f, const Args&... args) {
     return captured_out.str();
 }
 
-TEST_CASE("simple cases", "[truth_table]") {
+TEST_CASE("truth table simple cases", "[truth_table]") {
     REQUIRE(
         capture_stdout(print_truth_table, "A") ==
         "| A | = |\n"
@@ -76,7 +76,7 @@ TEST_CASE("simple cases", "[truth_table]") {
     );
 }
 
-TEST_CASE("subject case", "[truth_table]") {
+TEST_CASE("truth table subject case", "[truth_table]") {
     REQUIRE(
         capture_stdout(print_truth_table, "AB&C|") ==
         "| A | B | C | = |\n"

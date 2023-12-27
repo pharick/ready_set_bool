@@ -13,8 +13,8 @@ namespace m42 {
             TreeNode *right;
 
             TreeNode(char token, TreeNode *left, TreeNode *right);
+            TreeNode(char token, TreeNode *left);
             explicit TreeNode(char token);
-            ~TreeNode();
         };
 
         TreeNode *_root;
@@ -23,11 +23,14 @@ namespace m42 {
         Proposition();
 
         void _parse_formula(const std::string &formula);
+        static void _delete_tree(TreeNode *node);
+        static void _delete_stack(std::stack<TreeNode *> &stack);
         static TreeNode *_copy_tree(TreeNode *node);
         static std::string _postfix_notation(TreeNode *node);
         static void _print_node(TreeNode *node, int space);
         static bool _evaluate_node(TreeNode *node);
         void _substitute_values(TreeNode *node, const std::map<char, bool> &values);
+        static TreeNode *_to_negation_normal_form(TreeNode *node);
 
     public:
         explicit Proposition(const std::string &formula);

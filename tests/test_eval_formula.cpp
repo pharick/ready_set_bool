@@ -4,7 +4,7 @@
 
 using namespace m42;
 
-TEST_CASE("subject examples", "[eval_formula]") {
+TEST_CASE("eval subject cases", "[eval_formula]") {
     REQUIRE(eval_formula("10&") == false);
     REQUIRE(eval_formula("10|") == true);
     REQUIRE(eval_formula("11>") == true);
@@ -14,7 +14,7 @@ TEST_CASE("subject examples", "[eval_formula]") {
     REQUIRE(eval_formula("1!") == false);
 }
 
-TEST_CASE("invalid formulas", "[eval_formula]") {
+TEST_CASE("eval invalid formulas", "[eval_formula]") {
     REQUIRE_THROWS(eval_formula(""));
     REQUIRE_THROWS(eval_formula("1|"));
     REQUIRE_THROWS(eval_formula("1&0"));
