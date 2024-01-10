@@ -67,6 +67,11 @@ namespace m42 {
         _root = _to_negation_normal_form(_root);
     }
 
+    void Proposition::to_conjunctive_normal_form() {
+        to_negation_normal_form();
+        _root = _negation_normal_form_to_conjunctive_normal_form(_root);
+    }
+
     void Proposition::_parse_formula(const std::string &formula) {
         std::stack<TreeNode *> stack;
 
@@ -269,6 +274,57 @@ namespace m42 {
                     delete node->left;
                     delete node;
                     return _to_negation_normal_form(new_node);
+                }
+                return node;
+            default:
+                return node;
+        }
+    }
+
+    Proposition::TreeNode *Proposition::_negation_normal_form_to_conjunctive_normal_form(TreeNode *node) {
+        if (node == nullptr)
+            return nullptr;
+
+        if (node->left)
+            node->left = _negation_normal_form_to_conjunctive_normal_form(node->left);
+        if (node->right)
+            node->right = _negation_normal_form_to_conjunctive_normal_form(node->right);
+
+        TreeNode *new_node;
+        switch (node->token) {
+            case '|':
+                if (node->left->token == '|' && (std::isalnum(node->right->token) || node->right->token == '!')) {
+                    new_node = new TreeNode(
+                        '|',
+                        node->left->left,
+                        new TreeNode('|', node->left->right, node->right)
+                    );
+                    delete node->left;
+                    delete node;
+                    return _negation_normal_form_to_conjunctive_normal_form(new_node);
+                }
+                if ((std::isalnum(node->left->token) || node->left->token == '!') && node->right->token == '&') {
+                    new_node = new TreeNode(
+                        '&',
+                        new TreeNode('|', _copy_tree(node->left), node->right->left),
+                        new TreeNode('|', _copy_tree(node->left), node->right->right)
+                    );
+                    delete node->right;
+                    delete node->left;
+                    delete node;
+                    return _negation_normal_form_to_conjunctive_normal_form(new_node);
+                }
+                return node;
+            case '&':
+                if (node->left->token == '&' && (std::isalnum(node->right->token) || node->right->token == '!')) {
+                    new_node = new TreeNode(
+                        '&',
+                        node->left->left,
+                        new TreeNode('&', node->left->right, node->right)
+                    );
+                    delete node->left;
+                    delete node;
+                    return _negation_normal_form_to_conjunctive_normal_form(new_node);
                 }
                 return node;
             default:

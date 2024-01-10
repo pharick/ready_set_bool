@@ -31,6 +31,7 @@ namespace m42 {
         static bool _evaluate_node(TreeNode *node);
         void _substitute_values(TreeNode *node, const std::map<char, bool> &values);
         static TreeNode *_to_negation_normal_form(TreeNode *node);
+        static TreeNode *_negation_normal_form_to_conjunctive_normal_form(TreeNode *node);
 
     public:
         explicit Proposition(const std::string &formula);
@@ -46,6 +47,7 @@ namespace m42 {
 
         void substitute_values(const std::map<char, bool> &values);
         void to_negation_normal_form();
+        void to_conjunctive_normal_form();
     };
 
 }

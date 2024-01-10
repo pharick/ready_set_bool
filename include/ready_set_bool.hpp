@@ -47,6 +47,9 @@ namespace m42 {
     /* Negation normal form */
     std::string negation_normal_form(const std::string &formula);
 
+    /* Conjunctive normal form */
+    std::string conjunctive_normal_form(const std::string &formula);
+
 }
 
 #endif //READY_SET_BOOL_READY_SET_BOOL_HPP
