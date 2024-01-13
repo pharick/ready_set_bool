@@ -50,6 +50,9 @@ namespace m42 {
     /* Conjunctive normal form */
     std::string conjunctive_normal_form(const std::string &formula);
 
+    /* SAT */
+    bool sat(const std::string &formula);
+
 }
 
 #endif //READY_SET_BOOL_READY_SET_BOOL_HPP

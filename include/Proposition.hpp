@@ -44,6 +44,7 @@ namespace m42 {
         [[nodiscard]] const std::map<char, size_t> &vars() const;
         [[nodiscard]] std::string postfix_notation() const;
         [[nodiscard]] bool evaluate() const;
+        [[nodiscard]] bool is_satisfiable() const;
 
         void substitute_values(const std::map<char, bool> &values);
         void to_negation_normal_form();

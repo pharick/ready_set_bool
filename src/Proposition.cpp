@@ -59,6 +59,22 @@ namespace m42 {
         return _evaluate_node(_root);
     }
 
+    bool Proposition::is_satisfiable() const {
+        uint32_t max_values = extend_bit(true, vars().size());
+        for (uint32_t values = 0; values <= max_values; ++values) {
+            std::map<char, bool> v;
+            size_t i = 0;
+            for (auto c : vars()) {
+                v[c.first] = (values >> (vars().size() - 1 - i++)) & 1;
+            }
+            Proposition p(*this);
+            p.substitute_values(v);
+            if (p.evaluate())
+                return true;
+        }
+        return false;
+    }
+
     void Proposition::substitute_values(const std::map<char, bool> &values) {
         _substitute_values(_root, values);
     }
