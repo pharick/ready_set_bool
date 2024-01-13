@@ -11,6 +11,7 @@
 #include <map>
 #include <utility>
 #include <sstream>
+#include <set>
 
 #include "Proposition.hpp"
 
@@ -52,6 +53,9 @@ namespace m42 {
 
     /* SAT */
     bool sat(const std::string &formula);
+
+    /* Powerset */
+    std::set<std::set<int>> powerset(const std::set<int> &set);
 
 }
 
