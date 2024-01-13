@@ -32,6 +32,7 @@ namespace m42 {
         void _substitute_values(TreeNode *node, const std::map<char, bool> &values);
         static TreeNode *_to_negation_normal_form(TreeNode *node);
         static TreeNode *_negation_normal_form_to_conjunctive_normal_form(TreeNode *node);
+        static std::set<int> _evaluate_sets(TreeNode *node, const std::map<char, std::set<int>> &vars, const std::set<int> &universal);
 
     public:
         explicit Proposition(const std::string &formula);
@@ -45,6 +46,7 @@ namespace m42 {
         [[nodiscard]] std::string postfix_notation() const;
         [[nodiscard]] bool evaluate() const;
         [[nodiscard]] bool is_satisfiable() const;
+        [[nodiscard]] std::set<int> evaluate_sets(const std::map<char, std::set<int>> &vars);
 
         void substitute_values(const std::map<char, bool> &values);
         void to_negation_normal_form();

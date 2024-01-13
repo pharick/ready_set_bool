@@ -75,6 +75,14 @@ namespace m42 {
         return false;
     }
 
+    std::set<int> Proposition::evaluate_sets(const std::map<char, std::set<int>> &vars) {
+        std::set<int> universal;
+        for (auto &var : vars) {
+            universal.insert(var.second.begin(), var.second.end());
+        }
+        return _evaluate_sets(_to_negation_normal_form(_root), vars, universal);
+    }
+
     void Proposition::substitute_values(const std::map<char, bool> &values) {
         _substitute_values(_root, values);
     }
@@ -345,6 +353,41 @@ namespace m42 {
                 return node;
             default:
                 return node;
+        }
+    }
+
+    std::set<int> Proposition::_evaluate_sets(
+        Proposition::TreeNode *node, const std::map<char, std::set<int>> &vars,
+        const std::set<int> &universal
+    ) {
+        if (std::isalpha(node->token))
+            return vars.at(node->token);
+
+        std::set<int> s1, s2, result;
+        switch (node->token) {
+            case '0':
+            case '1':
+                throw std::runtime_error("Can not evaluate proposition with constants");
+            case '!':
+                s1 = _evaluate_sets(node->left, vars, universal);
+                std::set_difference(universal.begin(), universal.end(), s1.begin(), s1.end(), std::inserter(result, result.begin()));
+                return result;
+            case '&':
+                s1 = _evaluate_sets(node->left, vars, universal);
+                s2 = _evaluate_sets(node->right, vars, universal);
+                std::set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(), std::inserter(result, result.begin()));
+                return result;
+            case '|':
+                s1 = _evaluate_sets(node->left, vars, universal);
+                s2 = _evaluate_sets(node->right, vars, universal);
+                std::set_union(s1.begin(), s1.end(), s2.begin(), s2.end(), std::inserter(result, result.begin()));
+                return result;
+            case '^':
+            case '>':
+            case '=':
+                throw std::runtime_error("Not normal form");
+            default:
+                throw std::runtime_error("Invalid token");
         }
     }
 

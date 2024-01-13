@@ -12,6 +12,7 @@
 #include <utility>
 #include <sstream>
 #include <set>
+#include <algorithm>
 
 #include "Proposition.hpp"
 
@@ -56,6 +57,9 @@ namespace m42 {
 
     /* Powerset */
     std::set<std::set<int>> powerset(const std::set<int> &set);
+
+    /* Eval set */
+    std::set<int> eval_set(const std::string &str, std::map<char, std::set<int>> &set_map);
 
 }
 
