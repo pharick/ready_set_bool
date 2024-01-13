@@ -61,6 +61,12 @@ namespace m42 {
     /* Eval set */
     std::set<int> eval_set(const std::string &str, std::map<char, std::set<int>> &set_map);
 
+    /* Space-Filling Curve */
+    uint32_t interleave(uint16_t x, uint16_t y);
+    double map(uint16_t x, uint16_t y);
+    std::pair<uint16_t, uint16_t> deinterleave(uint32_t interleaved);
+    std::pair<uint16_t, uint16_t> reverse_map(double n);
+
 }
 
 #endif //READY_SET_BOOL_READY_SET_BOOL_HPP
